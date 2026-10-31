@@ -1,0 +1,23 @@
+[package]
+name = "proyecta-core-wasm"
+version = "0.1.0"
+edition = "2021"
+authors = ["Proyecta Core Engineering <dev@proyecta.social>"]
+description = "Motor de WebAssembly en Rust para cálculo de proyección psicológica y criptografía anónima"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "0.2.95"
+wee_alloc = { version = "0.4.5", optional = true }
+
+[features]
+default = ["wee_alloc"]
+
+[profile.release]
+opt-level = "z"     # Optimizado para tamaño de binario mínimo
+lto = true          # Link-Time Optimization para eliminar código no utilizado
+codegen-units = 1   # Mayor compresión y optimización monolitíca
+panic = "abort"     # Elimina unwinding pesado para reducir tamaño a < 25KB

@@ -1,0 +1,53 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "proyecta-social",
+  "compatibility_date": "2024-11-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "pages_build_output_dir": ".next",
+
+  /**
+   * BASE DE DATOS SERVERLESS EN EL EDGE: CLOUDFLARE D1
+   * Generosa capa gratuita: 5M lecturas/día, 100k escrituras/día, 5GB de almacenamiento.
+   */
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "proyecta-db",
+      "database_id": "proyecta-d1-prod-id",
+      "migrations_dir": "drizzle/migrations"
+    }
+  ],
+
+  /**
+   * ALMACENAMIENTO DE ARCHIVOS Y MULTIMEDIA: CLOUDFLARE R2
+   * 10 GB gratis y CERO cobro por transferencia de datos de salida (Egress Free).
+   */
+  "r2_buckets": [
+    {
+      "binding": "MEDIA_BUCKET",
+      "bucket_name": "proyecta-media"
+    }
+  ],
+
+  /**
+   * ALMACENAMIENTO CLAVE-VALOR EN MEMORIA EDGE: CLOUDFLARE KV
+   * Ideal para caché de sesiones de usuario y contadores en tiempo real.
+   */
+  "kv_namespaces": [
+    {
+      "binding": "KV_SESSIONS",
+      "id": "proyecta-kv-sessions-id"
+    }
+  ],
+
+  /**
+   * VARIABLES DE ENTORNO EN EL EDGE
+   */
+  "vars": {
+    "APP_ENV": "production",
+    "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+    "BETTER_AUTH_URL": "https://proyecta.pages.dev"
+  }
+}

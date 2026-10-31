@@ -13,6 +13,9 @@ dist/
 .aistudio/
 **/.tempmediaStorage/
 .tempmediaStorage/
+public/assets/aistudio/
+public/assets/aistudio/**
+
 
 # Artefactos de compilación de Rust y WebAssembly
 target/

@@ -30,10 +30,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # Nota: No forzamos cache npm para que no falle si no existe package-lock.json en el repo
 
       - name: 📦 Instalar dependencias
-        run: npm install --prefer-offline --no-audit
+        run: npm install --no-audit --no-fund
 
       - name: 🧪 Verificar tipado y compilar Next.js
         run: npm run build
